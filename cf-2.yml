@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Simple CloudFormation Template for multiple EC2 Instances
+
+Parameters:
+  InstanceCount:
+    Type: Number
+    Description: Number of EC2 instances to create
+    Default: 5
+
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-09ccb67fcbf1d625c
+      SecurityGroups:
+        - Ref: MySecurityGroup
+
+  MySecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH access
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
